@@ -46,19 +46,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
-        Log.v(TAG, "viewPager.setAdapter");
-
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        Log.v(TAG, "tabLayout initialized");
-
-
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
+        tabLayout =(TabLayout) findViewById(R.id.tabLayout);
 
         if (tabLayout != null && viewPager!= null) {
             new TabLayoutMediator(
@@ -68,17 +56,12 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                         tab.setText(tabNames[position]);
                         tab.setIcon(R.drawable.ic_launcher_background);
                     }
-
             ).attach();
         } else {
-            if (tabLayout == null) {
-                Log.v(TAG, "tabLayout == null");
-            }
-            if (viewPager == null) {
-                Log.v(TAG, "viewPager == null");
-            }
+            Log.v(TAG, "tabLayout  or viewPager == null");
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -105,7 +88,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         public Fragment createFragment(int position) {
             // here you can supply custom ScreenSlidePageFragemnt, based on the position
             if (position == 0) {
-               return ScreenSlidePageFragment.newInstance("This is the first Fragment");
+               return ScreenSlidePageFragment.newInstance("This is the first Fragment \n " +
+                       "(This text can be initalized as a Parameter for the Factory method of the Fragment");
             } else {
                 return ScreenSlidePageFragment.newInstance("This is the second Fragment");
             }
