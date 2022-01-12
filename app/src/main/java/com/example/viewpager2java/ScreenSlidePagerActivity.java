@@ -104,7 +104,11 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         @Override
         public Fragment createFragment(int position) {
             // here you can supply custom ScreenSlidePageFragemnt, based on the position
-            return new ScreenSlidePageFragment();
+            if (position == 0) {
+               return ScreenSlidePageFragment.newInstance("This is the first Fragment");
+            } else {
+                return ScreenSlidePageFragment.newInstance("This is the second Fragment");
+            }
         }
 
         @Override
