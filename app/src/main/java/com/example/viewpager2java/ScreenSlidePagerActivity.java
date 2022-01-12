@@ -1,19 +1,25 @@
 package com.example.viewpager2java;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TableLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 public class ScreenSlidePagerActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 2;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -25,16 +31,53 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private FragmentStateAdapter pagerAdapter;
+    private static final String TAG = "ScreenSlidePagerActivity";
+
+
+    TabLayout tabLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
 
-        // Instantiate a ViewPager2 and a PagerAdapter.
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
+        Log.v(TAG, "viewPager.setAdapter");
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        Log.v(TAG, "tabLayout initialized");
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        if (tabLayout != null && viewPager!= null) {
+            new TabLayoutMediator(
+                    tabLayout,
+                    viewPager,
+                    (tab, position) -> {
+                        tab.setText("Tab" );
+                        tab.setIcon(R.drawable.ic_launcher_background);
+                    }
+
+            ).attach();
+        } else {
+            if (tabLayout == null) {
+                Log.v(TAG, "tabLayout == null");
+            }
+            if (viewPager == null) {
+                Log.v(TAG, "viewPager == null");
+            }
+        }
     }
 
     @Override
@@ -50,7 +93,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     }
 
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * A simple pager adapter that represents some ScreenSlidePageFragment objects, in
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
@@ -60,6 +103,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
         @Override
         public Fragment createFragment(int position) {
+            // here you can supply custom ScreenSlidePageFragemnt, based on the position
             return new ScreenSlidePageFragment();
         }
 
