@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ViewPager2Java</string>
+    <string name="lorem_ipsum">lorem ipsum</string>
 </resources>
