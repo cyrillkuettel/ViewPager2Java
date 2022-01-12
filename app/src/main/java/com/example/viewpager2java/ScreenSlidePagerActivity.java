@@ -35,7 +35,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
 
     TabLayout tabLayout;
-
+    final String[] tabNames = {"QR-Code", "Neural Network plant detection"};
 
 
     @Override
@@ -65,7 +65,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                     tabLayout,
                     viewPager,
                     (tab, position) -> {
-                        tab.setText("Tab" );
+                        tab.setText(tabNames[position]);
                         tab.setIcon(R.drawable.ic_launcher_background);
                     }
 
